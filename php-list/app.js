@@ -42,8 +42,19 @@ createApp({
 					this.todos = []
 				})
 		},
-	},
-	mounted() {
-		this.fetchTodoList()
-	},
-}).mount('#app')
+		deleteTask(index) {
+			this.todos.splice(index, 1);
+			axios
+			  .post('./server.php', { todos: this.todos })
+			  .then((res) => {
+				console.log(res.data);
+			  })
+			  .catch((err) => {
+				console.log(err);
+			  });
+		  },
+		},
+		mounted() {
+		  this.fetchTodoList();
+		},
+	  }).mount('#app');
